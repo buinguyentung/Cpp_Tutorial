@@ -1,5 +1,0 @@
-This repo includes C++ tutorials about frequently-used data structures, algorithms, etc.
-
-P.S. Such a long time since I tried hard to immerse myself into these kind of interesting knowledge.
-Now I am collecting them step-by-step and day-by-day from the little things to build a strong basis.
-
