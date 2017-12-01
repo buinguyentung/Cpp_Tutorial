@@ -43,11 +43,13 @@ List of functions
 Example 3. Reordering a singly linked list
 	From (L0->L1->...Ln-1->Ln) to (L0->Ln->L1->Ln-1->...)
 
-Example 4. Detecting circular (loop) linked list
+Example 4. Merge and Reverse two ascentdant-ordered lists
 
-Example 5. Stack implementation with linked list
+Example 5. Detecting circular (loop) linked list
 
-Example 6. Finding intersection and union of two lists
+Example 6. Stack implementation with linked list
+
+Example 7. Finding intersection and union of two lists
 
 Reference:
 https://www.codementor.io/codementorteam/a-comprehensive-guide-to-implementation-of-singly-linked-list-using-c_plus_plus-ondlm5azr
