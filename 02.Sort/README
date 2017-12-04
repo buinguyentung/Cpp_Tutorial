@@ -1,0 +1,25 @@
+std::sort() in C++ STL
+There are two algorithms that are traditionally used.
+std::sort is most likely to use QuickSort, or at least a variation over QuickSort called IntroSort, which "degenerates" to HeapSort when the recursion goes too deep.
+std::stable_sort is most likely to use MergeSort, because of the stability requirement. However note that MergeSort requires extra space in order to be efficient.
+
+* sort(arr, arr+n);
+by default, sort() sorts an array in ascending order.
+
+How to sort in descending order?
+* sort(arr, arr+n, greater<int>());
+sort() takes a third parameter that is used to specify the order in which elements are to be sorted.
+
+How to sort in particular order?
+* sort(arr, arr+n, compareInterval);
+
+What does IntroSort do?
+IntroSort limits the branching of QuickSort.
+With IntroSort we stop QuickSort, when we reach a depth log(N), then we use HeapSort for the remaining unsorted array.
+
+
+Reference:
+http://www.geeksforgeeks.org/quick-sort/
+http://www.geeksforgeeks.org/merge-sort/
+http://www.geeksforgeeks.org/sort-c-stl/
+https://stackoverflow.com/questions/22339240/what-algorithms-are-used-in-c11-stdsort-in-different-stl-implementations
