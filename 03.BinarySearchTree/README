@@ -1,0 +1,35 @@
+Binary Search Tree
+
+Binary Search Tree, is a node-based binary tree data structure which has the following properties:
+	+ The left subtree of a node contains only nodes with keys less than the node’s key.
+	+ The right subtree of a node contains only nodes with keys greater than the node’s key.
+	+ The left and right subtree each must also be a binary search tree.
+	  There must be no duplicate nodes.
+
+Example:
+         100                               100
+        /   \        Insert 40            /    \
+      20     500    --------->          20     500 
+     /  \                              /  \  
+    10   30                           10   30
+                                              \   
+                                              40
+
+The structure of a BST node is as follows:
+	struct node {
+		int data;
+		int lcount; // in case needed to count the number of child node of the left
+		struct node *right, *left;
+	};
+
+Operation:
+1. Searching a key
+2. Insertion of a node
+3. Deleting a node
+4. Inorder/Preorder/Postorder travesal of BST
+5. Finding k-th smallest element
+6. Counting BST nodes that lie in a given range
+
+
+References:
+http://www.geeksforgeeks.org/binary-search-tree-data-structure/
