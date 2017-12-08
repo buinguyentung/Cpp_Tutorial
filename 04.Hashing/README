@@ -1,0 +1,47 @@
+Hashing is an improvement over Direct Access Table. The idea is to use hash function that converts a given big number or any other key to a smaller number and uses the small number as index in a table called hash table.
+	+ Hash Function: a function that converts a given big number to a small practical integer value. The mapped integer value is used as an index in hash table. 
+	+ Hash Table: an array that stores pointers to records corresponding to a given big number. An entry in hash table is NULL if no existing big number has hash function value equal to the index for the entry.
+
+Collision handling: Since a hash function gets us a small number for a key which is a big integer or string, there is possibility that two keys result in same value. 
+The situation where a newly inserted key maps to an already occupied slot in hash table is called collision and must be handled using some collision handling technique.
+Following are the ways to handle collision:
+	+ Separate Chaining: the idea is to make each cell of hash table point to a linked list of records that have same hash function value.
+	+ Open Addressing: all elements are stored in the hash table itself. Each table entry contains either a record or NULL (deleted). 
+
+Implementing our Own Hash Table with Separate Chaining
+	+ get(K key) : returns the value corresponding to the key if the key is present in HT (Hash Table)
+	+ getSize() : return the size of the HT
+	+ add() : adds new valid key, value pair to the HT, if already present updates the value
+	+ remove() : removes the key, value pair
+	+ isEmpty() : returns true if size is zero
+
+Implementing own Hash table with Open Addressing Linear probing
+	+ Insert(k): keep probing until an empty slot is found. Once an empty slot is found, insert k. 
+		We have Linear probing, Quadratic probing, Double hashing.
+	+ Search(k): keep probing until slot's key doesn't become equal to k or an empty slot is reached.
+	+ Delete(k): If we simply delete a key, then search may fail. So slots of deleted keys are marked specially as “deleted”.
+		Here, to mark a node deleted we have used dummy node with key and value -1.
+		Insert can insert an item in a deleted slot, but search doesn’t stop at a deleted slot.
+
+//template for generic type
+template<typename K, typename V>
+
+//Hashnode class
+class HashNode
+{
+public:
+	V value;
+	K key;
+
+	//Constructor of hashnode
+	HashNode(K key, V value)
+	{
+		this->value = value;
+		this->key = key;
+	}
+};
+
+
+
+Reference:
+http://www.geeksforgeeks.org/hashing-data-structure/
