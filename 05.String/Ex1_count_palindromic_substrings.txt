@@ -1,0 +1,72 @@
+/* Count all palindromic substrings
+    Input:
+        3
+        5
+        abaab
+        7
+        abbaeae
+        5
+        aaaaa
+    Output:
+        3   //All palindromic substrings are : "aba" , "aa" , "baab"
+        4   //All palindromic substrings are : "bb" , "abba" ,"aea","eae"
+        10  //All palindromic substrings are : "aa" x 4 , "aaa" x 3 , "aaaa" x 2 , "aaaaa" x 1
+*/
+#include <iostream>
+#include <fstream>
+#include <string.h>
+
+using namespace std;
+
+#define MAX_S 505
+
+int countPalindromicSubstring(char* str) {
+    int ret = 0;
+    int len = strlen(str);
+
+    for (int i = 0; i < len - 1; i++) {
+        /* check odd substring */
+        int l = 1;	/* because we do not count substrings with length is 1 */
+        while (true) {
+            if (i - l < 0 || i + l >= len || (str[i - l] != str[i + l]))
+                break;
+            //cout << "yes1: " << i << " " << l << endl;
+            ret++;
+            l++;
+        }
+        /* check even substring */
+        if (str[i] == str[i + 1]) {
+            int l = 0;
+            while (true) {
+                if (i - l < 0 || i + 1 + l >= len || (str[i - l] != str[i + 1 + l]))
+                    break;
+                //cout << "yes2: " << i << " " << i + 1 << endl;
+                ret++;
+                l++;
+            }
+        }
+    }
+    return ret;
+}
+
+int main()
+{
+    int tc, len;
+    char str[MAX_S];
+
+    freopen("input.txt", "r", stdin);
+
+    cin >> tc;
+    while (tc > 0) {
+        cin >> len;
+        cin >> str;
+        //cout << strlen(str) << " " << str << endl;
+        cout << countPalindromicSubstring(str) << endl;
+        tc--;
+    }
+
+    fclose(stdin);
+
+    return 0;
+}
+

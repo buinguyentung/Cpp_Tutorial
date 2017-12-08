@@ -1,0 +1,74 @@
+/* Count all distinct palindromic substrings
+    Input:
+        3
+        abaaa
+        geek
+        aaaaa
+    Output:
+        5   //All distinct palindromic substrings are : "a" , "b" , "aba" , "aa" , "aaa"
+        4   //All distinct palindromic substrings are : "g" , "e" ,"ee","k"
+        5   //All distinct palindromic substrings are : "a" , "aa" , "aaa" , "aaaa" , "aaaaa"
+    Note: use string functions such as str.length(), str.substr(i, len); and map<string, int>
+*/
+#include <iostream>
+#include <fstream>
+#include <string.h>
+#include <map>
+
+using namespace std;
+
+int countPalindromicSubstring(string str) {
+    int ret = 0;
+    int len = str.length();
+    map<string, int> my_map;
+
+    for (int i = 0; i < len; i++) {
+        /* check odd substring */
+        int l = 0;
+        while (true) {
+            if (i - l < 0 || i + l >= len || (str[i - l] != str[i + l]))
+                break;
+            string temp = str.substr(i - l, 2 * l + 1);
+            my_map[temp]++;
+            l++;
+        }
+        /* check even substring */
+        if (i + 1 < len && str[i] == str[i + 1]) {
+            int l = 0;
+            while (true) {
+                if (i - l < 0 || i + 1 + l >= len || (str[i - l] != str[i + 1 + l]))
+                    break;
+                string temp = str.substr(i - l, 2 * (l + 1));
+                my_map[temp]++;
+                l++;
+            }
+        }
+    }
+    /*map<string, int>::iterator it;
+    for (it = my_map.begin(); it != my_map.end(); it++)
+        cout << it->first << " ";
+    cout << endl;*/
+    ret = my_map.size();
+    return ret;
+}
+
+int main()
+{
+    int tc;
+    string str;
+
+    freopen("input.txt", "r", stdin);
+
+    cin >> tc;
+    while (tc > 0) {
+        cin >> str;
+        //cout << strlen(str) << " " << str << endl;
+        cout << countPalindromicSubstring(str) << endl;
+        tc--;
+    }
+
+    fclose(stdin);
+
+    return 0;
+}
+

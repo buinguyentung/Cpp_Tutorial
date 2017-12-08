@@ -1,0 +1,78 @@
+/* Find the longest consecutive palindromic substring
+    Input:
+        3
+        aaaabbaa
+        aaaaa
+        forgeeksskeegfor
+    Output:
+        aabbaa
+        aaaaa
+        geeksskeeg
+    Method:
+        We can use brute force O(N^3),
+        Dynamic Programing O(N^2) required O(N^2) extra space,
+            + F[i][j] = true if (str[i] == str[j] && F[i + 1][j - 1] == true)
+        or my old method O(N^2) required only O(1) extra space:
+            + fix the center for odd/event substrings, expand the length both directions (low, high) while it still satisfies palindromic substring
+            + keep track on the biggest value of length
+*/
+#include <iostream>
+#include <fstream>
+#include <string.h>
+#include <map>
+
+using namespace std;
+
+/* old method */
+string getLongestPalindromicSubstring(string str) {
+    int len = str.length();
+    string ret;
+    int max_len = 0;
+
+    for (int i = 0; i < len; i++) {
+        // handle odd substring
+        int low = i;
+        int high = i;
+        while (low >= 0 && high < len && str[low] == str[high]) {
+            if (high - low + 1 > max_len) {
+                max_len = high - low + 1;
+                ret = str.substr(low, max_len);
+            }
+            low--;
+            high++;
+        }
+
+        // handle event substring
+        low = i; high = i + 1;
+        while (low >= 0 && high < len && str[low] == str[high]) {
+            if (high - low + 1 > max_len) {
+                max_len = high - low + 1;
+                ret = str.substr(low, max_len);
+            }
+            low--;
+            high++;
+        }
+    }
+
+    return ret;
+}
+
+int main()
+{
+    int tc;
+    string str;
+
+    freopen("input.txt", "r", stdin);
+
+    cin >> tc;
+    while (tc > 0) {
+        cin >> str;
+        //cout << str.length() << " " << str << endl;
+        cout << getLongestPalindromicSubstring(str) << endl;
+        tc--;
+    }
+
+    fclose(stdin);
+
+    return 0;
+}

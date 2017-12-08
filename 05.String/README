@@ -1,0 +1,18 @@
+String
+
+There are two ways to work with String in C++ using library <string.h>
+1. char str[] or char* : strlen(str), strcpy(), etc.
+2. string: str.length(), str.substr(), etc.
+	string is valid to be a key of map, such as my_map<string, int>
+
++ string str = "";	// create a new string
++ str.length() : return the length of string
++ str.substr(i, l) : return a substring from position i with length is l
++ str.insert(i, "x") : insert string "x" into position i
++ str.insert(i, 1, str2[j]) : insert character str2[j] into position i
++ string ToString(char c) { return string(1, c); } : convert a character into string
++ reverseStr() : return a reversed string
+
+
+Reference:
+http://www.cplusplus.com/reference/string/
