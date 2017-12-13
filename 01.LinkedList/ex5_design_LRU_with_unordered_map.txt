@@ -1,0 +1,93 @@
+/* Design LRU - Least Recently Used list, which is implemented in OS swap in/out mechanism
+    LRU is a list of recently used pair<key, value>
+        + if new access for pair <key, value>, and key is in the list, then move pair<key, value> to the head of list
+        + if key isn't in the list, check for capacity,
+            + if reached capacity then remove the pair on the tail
+            + add new pair in the head
+
+    use unordered_map, linked list => the time complexity would be O(1) for each query add(), access(), find(), etc.
+*/
+#include <iostream>
+#include <unordered_map>
+
+using namespace std;
+
+#define CAPACITY 1001
+
+struct Node {
+    string key;
+    string value;
+    Node *next;
+    Node *prev;
+};
+
+//struct LRU {
+    Node* head;
+    Node* tail;
+    unordered_map<string, Node*> my_map;
+//};
+
+void add(string key, string value) {
+    unordered_map<string, Node*>::iterator it;
+
+    it = my_map.find(key);
+    if (it != my_map.end()) {
+        /* key already in the map */
+        Node *curr = it->second;
+        Node *prev = curr->prev;
+        Node *next = curr->next;
+
+        // if (prev == NULL) then curr is the head, do nothing
+        // else remove curr from the list, then put it back to head
+        if (prev != NULL) {
+            if (next == NULL) {
+                prev->next = NULL;
+                tail = prev;
+            }
+            else {
+                prev->next = next;
+                next->prev = prev;
+            }
+            curr->next = head;
+            curr->prev = NULL;
+            head->prev = curr;
+            head = curr;
+        }
+    } else {
+        /* check capacity */
+        if (my_map.size() == CAPACITY) {
+            /* if reached capacity, remove the node and pair <key, node> on the list tail */
+            string remove_key = tail->key;
+            Node *temp = tail;
+            if (tail == head) {
+                tail = head = NULL;
+            }
+            else {
+                tail = tail->prev;
+                tail->next = NULL;
+            }
+            delete temp;
+
+            my_map.erase(my_map.find(remove_key));
+        }
+        /* create new node and put it in the head */
+        Node *temp = new Node;
+        temp->key = key;
+        temp->value = value;
+        temp->next = head;
+        temp->prev = NULL;
+        if (head != NULL)
+            head->prev = temp;
+        head = temp;
+        if (head->next == NULL) {
+            tail = head;
+        }
+        my_map.insert(pair<string, Node*>(key, temp));
+    }
+}
+
+int main() {
+
+    return 0;
+}
+
