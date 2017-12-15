@@ -1,0 +1,59 @@
+/* Find frequencies of individual words.
+    Input :  str = "geeks for geeks geeks quiz practice qa for";
+    Output : Frequencies of individual words are
+        (practice, 1)
+        (for, 2)
+        (qa, 1)
+        (quiz, 1)
+        (geeks, 3)
+*/
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <map>
+#include <unordered_map>
+#include <sstream>
+
+using namespace std;
+
+void printMap(std::map<int, int> my_map) {
+    /* map iterator */
+    for (std::map<int, int>::iterator it = my_map.begin(); it != my_map.end(); it++) {
+        cout << it-> first << "-" << it->second << endl;
+    }
+    cout << endl;
+}
+
+void findFrequency(string str) {
+    unordered_map<string, int> my_map;
+    unordered_map<string, int>::iterator it;
+
+    cout << str << " " << str.length() << endl;
+
+    /* break input string into words using string stream */
+    stringstream ss(str);
+    string word;
+    while (ss >> word) {
+        cout << word << "-" << word.length() << endl;
+        my_map[word]++;
+    }
+    cout << endl;
+
+    for (it = my_map.begin(); it != my_map.end(); it++)
+        cout << it->first << " " << it->second << endl;
+}
+
+int main()
+{
+    string str;
+    freopen("input.txt", "r", stdin);
+
+    // cin >> str; // only read the first word
+    getline(cin, str);
+    findFrequency(str);
+
+    fclose(stdin);
+    return 0;
+}
+

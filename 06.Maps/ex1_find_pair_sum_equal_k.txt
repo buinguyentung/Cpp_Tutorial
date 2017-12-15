@@ -1,0 +1,54 @@
+/*
+    Input:
+        10      <= N
+        1 7 3 2 9 3 4 3 3 4
+        5       <= K
+    Output:
+        6   /* 5 = 1 + 4 = 1 + 4 = 3 + 2 = 2 + 3 = 2 + 3 = 2 + 3 */
+*/
+#include <iostream>
+#include <fstream>
+#include <map>
+
+using namespace std;
+
+int N, K, A[101];
+
+void printMap(std::map<int, int> my_map) {
+    /* map iterator */
+    for (std::map<int, int>::iterator it = my_map.begin(); it != my_map.end(); it++) {
+        cout << it-> first << " " << it->second << endl;
+    }
+    cout << endl;
+}
+
+int getCountCouple() {
+    std::map<int, int> my_map;
+    int ret = 0;
+
+    for (int i = 0; i < N; i++) {
+        if (my_map.find(K - A[i]) != my_map.end())
+            ret = ret + my_map[K - A[i]];
+        my_map[A[i]]++;
+    }
+
+    printMap(my_map);
+
+    return ret;
+}
+
+int main()
+{
+    freopen("input.txt", "r", stdin);
+
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        cin >> A[i];
+    }
+    cin >> K;
+    cout << getCountCouple() << endl;
+
+    fclose(stdin);
+    return 0;
+}
+

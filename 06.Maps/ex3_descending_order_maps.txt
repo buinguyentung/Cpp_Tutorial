@@ -1,0 +1,58 @@
+/* Descending order in map
+    Input :  (10, "tung"), (20, "bill"), (15, "mark"), (30, "elon")
+    Output : (30, "elon"), (20, "bill"), (15, "mark"), (10, "tung")
+
+    Descending order in multimap
+    Input :     (10, "tung"), (10, "bill"), (5, "mark"), (10, "elon"), (10, "tung")
+    Output :    (10, "tung"), (10, "bill"), (10, "elon"), (10, "tung"), (5, "mark")
+*/
+
+#include <iostream>
+#include <string>
+#include <map>
+
+using namespace std;
+
+void printMap(std::map<int, string, greater<int>> my_map) {
+    /* map iterator */
+    map<int, string, greater<int>>::iterator it;
+    for (it = my_map.begin(); it != my_map.end(); it++) {
+        cout << it-> first << " - " << it->second << endl;
+    }
+    cout << endl;
+}
+
+void createDescendingOrderMap() {
+    map<int, string, greater<int>> my_map;
+
+    my_map.insert(pair<int, string>(10, "tung"));
+    my_map.insert(make_pair(20, "bill"));
+    my_map.insert(make_pair(15, "mark"));
+    my_map.insert(pair<int, string>(30, "elon"));
+
+    printMap(my_map);
+}
+
+void createDescendingOrderMultiMap() {
+    multimap<int, string, greater<int>> my_map;
+
+    my_map.insert(make_pair(10, "tung"));
+    my_map.insert(make_pair(10, "bill"));
+    my_map.insert(make_pair(5, "mark"));
+    my_map.insert(pair<int, string>(10, "elon"));
+    my_map.insert(make_pair(10, "tung"));
+
+    multimap<int, string, greater<int>>::iterator it;
+    for (it = my_map.begin(); it != my_map.end(); it++) {
+        cout << it-> first << " - " << it->second << endl;
+    }
+}
+
+int main()
+{
+    createDescendingOrderMap();
+    createDescendingOrderMultiMap();
+
+    return 0;
+}
+
