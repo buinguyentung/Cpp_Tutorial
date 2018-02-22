@@ -1,7 +1,15 @@
 The first C++ project to build a blockchain.
 There are 2 main classes: Block and Blockchain
-We are going to use the SHA256 hashing technique to create hashes of our blocks.
++ Block:
+Private: _nIndex, _nNonce, _sData, _sHash, _tTime, _CalculateHash()
+Public: constructor, sPrevHash, GetHash(), MineBlock(), GetIndex(), GetNonce(), GetData(), GetTime()
 
-Reference: 
++ Blockchain:
+Private: _nDifficulty, _vChain, _GetLastBlock()
+Public: constructor, AddBlock(), PrintLastBlockInfo()
+
+And, we are going to use the SHA256 hashing technique to create hashes of our blocks.
+
+Reference:
 http://davenash.com/2017/10/build-a-blockchain-with-c/
 http://www.zedwood.com/article/cpp-sha256-function
