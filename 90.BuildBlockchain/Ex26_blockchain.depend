@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1519290606 source:c:\users\15zd960.vn-so10-nc100g4\documents\codeblocks\ex26_blockchain\main.cpp
+	<iostream>
+	"Blockchain.h"
+
+1519209926 c:\users\15zd960.vn-so10-nc100g4\documents\codeblocks\ex26_blockchain\sha256.h
+	<string>
+
+1519209864 source:c:\users\15zd960.vn-so10-nc100g4\documents\codeblocks\ex26_blockchain\sha256.cpp
+	<cstring>
+	<fstream>
+	"sha256.h"
+
+1519289590 source:c:\users\15zd960.vn-so10-nc100g4\documents\codeblocks\ex26_blockchain\block.cpp
+	"Blockchain.h"
+
+1519286631 c:\users\15zd960.vn-so10-nc100g4\documents\codeblocks\ex26_blockchain\blockchain.h
+	<cstdint>
+	<vector>
+	"Block.h"
+
+1519288915 c:\users\15zd960.vn-so10-nc100g4\documents\codeblocks\ex26_blockchain\block.h
+	<cstdint>
+	<iostream>
+	<time.h>
+	<sstream>
+	"sha256.h"
+
+1519289744 source:c:\users\15zd960.vn-so10-nc100g4\documents\codeblocks\ex26_blockchain\blockchain.cpp
+	"Blockchain.h"
+
