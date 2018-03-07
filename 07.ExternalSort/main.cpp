@@ -1,3 +1,7 @@
+/* Sort lexicographically a large text file
+    Step 1: Split the big file in small sorted chunks
+    Step 2: Merge all chunks into a sorted output file
+*/
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -9,22 +13,32 @@
 
 using namespace std;
 
-#define MAX_LINE    10
+#define MAX_LINE        10
 #define MAX_TEMP_FILE   1000
-#define FILE_INPUT  "unsorted_input.txt"
-#define FILE_OUTPUT "sorted_output1.txt"
-#define FILE_TEMP   "temp-file-"
+#define FILE_INPUT      "unsorted_input.txt" //"english.txt"
+#define FILE_OUTPUT     "sorted_output1.txt"
+#define FILE_TEMP       "temp-file-"
 
-char* strLines[MAX_LINE];
-long numLines = 0;
-int numTempFiles = 0;
+char*   strLines[MAX_LINE];
+long    numLines = 0;
+int     numTempFiles = 0;
+
+
+/* *********************************************************
+ *   Split the big file in small sorted chunks
+ *   + Open a stream reader on the big file
+ *   + Keep reading until we have enough data
+ *   + Sort the data in memory and write it on disk on a temp file
+ *   + Repeat this operation until we finish processing the whole input file
+ * *********************************************************
+ */
 
 /* UNUSED: compared function in qsort() */
-int compareStr(const void* a, const void* b) {
+/*int compareStr(const void* a, const void* b) {
     const char* aa = *(const char**) a;
     const char* bb = *(const char**) b;
     return strcmp(aa, bb);
-}
+}*/
 
 /* Using as compared function in sort() */
 bool sortLexicographically(char* a, char* b) {
@@ -99,27 +113,27 @@ void processInputFile() {
 
 
 /* *********************************************************
-    K-way merge
-    + Open K file stream
-    + Read one line per file and take the smallest line each time
-    + Repeat this operation until we finish reading all the file
-    Keep the current line values in an ordered structure: priority queue
-    ********************************************************* */
+ *  K-way merge
+ *  + Open K file stream
+ *  + Read one line per file and take the smallest line each time
+ *  + Repeat this operation until we finish reading all the file
+ *  Keep the current line values in an ordered structure: priority queue
+ * *********************************************************
+ */
 
-class node {
+class Node {
 public:
     char* strLine = nullptr;
     int num;
 
-    node() { }
+    Node() { }
 
-    node(string s, int n) {
+    Node(string s, int n) : num(n) {
         strLine = new char[s.size() + 1];
         strcpy(strLine, s.c_str());
-        num = n;
     }
 
-    ~node() {
+    ~Node() {
         if (strLine != nullptr) {
             delete[] strLine;
             strLine = nullptr;
@@ -140,21 +154,19 @@ public:
     }
 };
 
-bool operator<(const node& a, const node& b) {
-    return strcmp(a.strLine, b.strLine) < 0;
-}
-
-bool compareNodes(node* a, node* b) {
-    return strcmp(a->strLine, b->strLine) < 0;
-}
+struct CompareNodePtrs {
+    bool operator() (const Node* a, const Node* b) const {
+        return strcmp(a->strLine, b->strLine) > 0;
+    }
+};
 
 void processOutputFile() {
     string file_name[numTempFiles + 1];
     ifstream temp_fin[numTempFiles + 1];
     bool available_fin[numTempFiles + 1];  // Used to mark not opening or reaching eof files
     string single_line;
-    node* file_node[numTempFiles + 1];
-    priority_queue<node*> queueLines;
+    Node* file_node[numTempFiles + 1];
+    priority_queue<Node*, vector<Node*>, CompareNodePtrs> queueLines;
 
     /* Opening sorted output file */
     ofstream fout(FILE_OUTPUT);
@@ -173,29 +185,23 @@ void processOutputFile() {
         } else {
             /* Pushing the first line of each temp file into queue */
             if (getline(temp_fin[num], single_line)) {
-                file_node[num] = new node(single_line, num);
-                cout << file_node[num]->strLine << " " << file_node[num]->num << endl;
+                file_node[num] = new Node(single_line, num);
+                //cout << file_node[num]->strLine << " " << file_node[num]->num << endl;
                 queueLines.push(file_node[num]);
-                cout << "Pushing done\n";
             }
             else {
                 available_fin[num] = false;
             }
         }
     }
-    if (compareNodes(file_node[0], file_node[1])) {
-        cout << "0: " << file_node[0]->strLine << endl;
-    } else {
-        cout << "1: " << file_node[1]->strLine << endl;
-    }
 
     /* Merging temp files into an output file */
-    cout << "size: " << queueLines.size() << endl;
-    node* temp;
+    //cout << "size: " << queueLines.size() << endl;
+    Node* temp;
     while (!queueLines.empty()) {
         temp = queueLines.top();
         queueLines.pop();
-        cout << "result: " << temp->strLine << endl;
+        //cout << "result: " << temp->strLine << "\n";
         fout << temp->strLine << "\n";
 
         // Getting the next line from chosen file if any and push into queue
@@ -213,22 +219,19 @@ void processOutputFile() {
     /* Removing all temp files */
     for (int num = 0; num < numTempFiles; num++)
     if (temp_fin[num].is_open()) {
-        cout << "node: " << file_name[num] << endl;
         temp_fin[num].close();
-
         //if (remove(file_name[num].c_str()) != 0)
             //perror("error while deleting temp file");
     }
-    cout << "End\n";
 }
 
 int main(int argc, char* argv[]) {
 
     processInputFile();
 
-    processOutputFile();
+    //processOutputFile();
 
-    cout << "End of End\n";
+    //cout << "End of End\n";
     //sort(strLines, strLines + numLines, sortLexicographically);
     //qsort(strLines, numLines, sizeof(char*), compareStr);
 
