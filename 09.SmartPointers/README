@@ -1,0 +1,23 @@
+Smart Pointers
+
+What is a smart pointer? 
+It's a type whose values can be used like pointers, but which provides the additional feature of automatic memory management: 
+When a smart pointer is no longer in use, the memory it points to is deallocated.
+
+Since C++11, the standard library has provided sufficient smart pointers types, 
+and so you should favour the use of std::unique_ptr, std::shared_ptr and std::weak_ptr.
+
+1. std::unique_ptr
+Light weight smart pointer with exclusive ownership. 
+Use when pointer points to unique objects without sharing the objects between the pointers.
+To change the object pointed to by the unique ptr , use std::move semantics
+
+2. std::shared_ptr
+Do NOT deallocate object until all references are gone.
+
+3. std::weak_ptr
+Use along share_ptr, but it is OK to ignore those weak references.
+
+
+Reference:
+https://www.youtube.com/watch?v=UOB7-B2MfwA
