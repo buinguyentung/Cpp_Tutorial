@@ -1,0 +1,11 @@
+Pointer
+
+Pointers are variables that store address of other variables.
+
+//===========================================================
+20190805: 
+(1) Pointer to Class
+A class pointer is a pointer variable that stores address of an object of a class. 
+(2) Pointer to Class array
+
+
