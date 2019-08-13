@@ -7,5 +7,13 @@ Pointers are variables that store address of other variables.
 (1) Pointer to Class
 A class pointer is a pointer variable that stores address of an object of a class. 
 (2) Pointer to Class array
+Note: This is to replace the . (dot) with a -> (dash followed by a greater than sign).
+
+//===========================================================
+20190813
+CodeProject: A Beginner's Guide to Pointers
+Dynamic Allocation; Memory Comes, Memory Goes; Passing Pointers to Functions; References
+
+
 
 

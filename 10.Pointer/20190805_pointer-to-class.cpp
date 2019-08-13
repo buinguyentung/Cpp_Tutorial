@@ -68,10 +68,10 @@ int main() {
 	}
 
 	{
-		Foo2 *bar2 = new Foo2();	// cout: Create Foo class (parent contructor) 
+		Foo2* bar2 = new Foo2();	// cout: Create Foo class (parent contructor)
 									// => Create Foo222 class (child contructor)
 		bar2->Print();		// cout: --- Foo222 called
-		delete bar2;		// cout: Destroy Foo222 class (child contructor) 
+		delete bar2;		// cout: Destroy Foo222 class (child contructor)
 							// => Destroy Foo class (parent constructor)
 	}
 
@@ -89,12 +89,25 @@ int main() {
 	arr1[0].setMyVar(1);
 	arr1[1].setMyVar(2);
 	arr1[2].setMyVar(3);
-	
-	Foo *ptr = arr1;
-	
+
+	Foo* ptr = arr1;
+	//Foo* ptr = &arr1[0];	// same result
+
 	for (int i = 0; i < 3; i++) {
 		(ptr + i)->Print();
 	}
+
+	// Pointer to Class Array 2 - using Dynamic Allocation
+	int* pArray;
+	pArray = new int[3];
+	pArray[0] = 0;
+	pArray[1] = 10;
+	pArray[2] = 20;
+	for (int i = 0; i < 3; i++) {
+		std::cout << pArray[i] << std::endl;
+	}
+
+	delete[] pArray;	// delete the whole array
 
 	return 0;
 }
